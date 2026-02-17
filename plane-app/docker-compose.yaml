@@ -3,11 +3,11 @@ version: '3.8'
 x-app-env: &app-env
   environment:
     - NGINX_PORT=${NGINX_PORT:-9008}
-    - WEB_URL=${WEB_URL:-https://plane.enfec.cloud}
+    - WEB_URL=${WEB_URL:-https://example.com}
     - DEBUG=${DEBUG:-0}
     - SENTRY_DSN=${SENTRY_DSN:-""}
     - SENTRY_ENVIRONMENT=${SENTRY_ENVIRONMENT:-"staging"}
-    - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-https://plane.enfec.cloud}
+    - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-https://example.com}
     - GUNICORN_WORKERS=${GUNICORN_WORKERS:-1}
     - PGHOST=${PGHOST:-plane-db}
     - PGDATABASE=${PGDATABASE:-plane}
