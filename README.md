@@ -1,97 +1,186 @@
 # plane-open_sourece-PMT
 
-🚀 Plane Deployment Guide
+# 🚀 Plane Deployment Guide
 
-This guide explains how to deploy Plane using the deploy-plane.sh script.
+This document explains how to deploy **Plane** using the `deploy-plane.sh` script.
 
-The script will:
+The installer will:
 
-Ask only for your Domain Name
+- ✅ Ask only for your **Domain Name**
+- ✅ Automatically generate `docker-compose.yaml`
+- ✅ Pull images from `raamcloudops`
+- ✅ Start or update the containers
 
-Automatically generate docker-compose.yaml
+---
 
-Pull images from raamcloudops
-
-Start or update the containers
-
-📋 Prerequisites
+# 📋 Prerequisites
 
 Make sure your server has:
 
-Docker installed
+- Docker installed
+- Docker Compose v2
+- Ports **80**, **9000**, and **9090** open (if required)
 
-Docker Compose (v2 recommended)
+Check Docker installation:
 
-Ports 80, 9000, 9090 open (if required)
-
-Check Docker:
-
+```bash
 docker --version
 docker compose version
-📦 Step 1 — Upload Script
+```
 
-Place deploy-plane.sh in your server directory:
+---
 
+# 📦 Step 1 — Prepare Deployment Directory
+
+```bash
 mkdir plane-app
 cd plane-app
-nano deploy-plane.sh
+```
 
-Paste the script content and save.
+Copy `deploy-plane.sh` into this directory.
 
-🔐 Step 2 — Make Script Executable
+---
+
+# 🔐 Step 2 — Make Script Executable
+
+```bash
 chmod +x deploy-plane.sh
-🚀 Step 3 — Run Deployment
+```
+
+---
+
+# 🚀 Step 3 — Run Deployment
+
+```bash
 ./deploy-plane.sh
+```
 
-It will prompt:
+You will be prompted:
 
+```
 Enter Domain Name (example: plane.example.com):
-Example:
+```
+
+### Example
+
+```
 Enter Domain Name (example: plane.example.com): plane.mycompany.com
-⚙️ What Happens Automatically
+```
+
+---
+
+# ⚙️ What Happens Automatically
 
 The script will:
 
-Generate docker-compose.yaml
+1. Generate `docker-compose.yaml`
+2. Pull images from `raamcloudops`
+3. Create required Docker volumes
+4. Start all Plane services
+5. Configure internal:
+   - PostgreSQL
+   - Redis
+   - RabbitMQ
+   - MinIO
 
-Pull images from raamcloudops
+---
 
-Create required volumes
-
-Start all Plane services
-
-Configure internal database, Redis, RabbitMQ, and MinIO
-
-🌐 Step 4 — Access Application
+# 🌐 Step 4 — Access Application
 
 Open your browser:
 
+```
 http://your-domain
-Example:
+```
+
+### Example
+
+```
 http://plane.mycompany.com
-🔄 Updating Plane
+```
 
-To update containers later:
+---
 
+# 🔄 Updating Plane
+
+To update the application later:
+
+```bash
 ./deploy-plane.sh
+```
 
-It will:
+This will:
 
-Recreate docker-compose.yaml
+- Regenerate `docker-compose.yaml`
+- Pull latest images
+- Restart services safely
 
-Pull latest images
+---
 
-Restart services safely
+# 🛑 Stop Plane
 
-🛑 Stop Plane
+```bash
 docker compose down
-📂 View Logs
+```
+
+---
+
+# 📂 View Logs
+
+```bash
 docker compose logs -f
-🧹 Remove Everything (Including Data)
+```
 
-⚠ This will delete all data permanently.
+---
 
+# 🧹 Remove Everything (Including Data)
+
+⚠ WARNING: This deletes all data permanently.
+
+```bash
 docker compose down -v
-📊 Check Running Containers
+```
 
+---
+
+# 📊 Check Running Containers
+
+```bash
 docker ps
+```
+
+---
+
+# 📦 Images Used
+
+| Component | Image Source |
+|-----------|-------------|
+| Backend   | raamcloudops/plane-backend |
+| Frontend  | raamcloudops/plane-frontend |
+| Database  | raamcloudops/postgres |
+| Redis     | raamcloudops/valkey |
+| RabbitMQ  | raamcloudops/rabbitmq |
+| Storage   | raamcloudops/minio |
+
+---
+
+# 🎯 Notes
+
+- Default internal credentials are auto-configured.
+- For production use, update secrets properly.
+- SSL can be configured using a reverse proxy like Nginx.
+
+---
+
+# ✅ Deployment Summary
+
+You now have a fully working Plane instance deployed using:
+
+- Single script
+- Automatic configuration
+- Custom Docker images
+- Minimal setup steps
+
+---
+
+Happy Deploying 🚀
