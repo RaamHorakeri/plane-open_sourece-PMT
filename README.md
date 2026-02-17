@@ -33,8 +33,8 @@ docker compose version
 # 📦 Step 1 — Prepare Deployment Directory
 
 ```bash
-mkdir plane-app
-cd plane-app
+mkdir plane
+cd plane
 ```
 
 Copy `deploy-plane.sh` into this directory.
